@@ -48,7 +48,6 @@
   --r-md:12px;
   --r-lg:16px;
   --r-xl:18px;
-  --r-2xl:22px;
   --r-pill:999px;
 }
 html{scroll-behavior:smooth}
@@ -65,7 +64,12 @@ a{color:inherit}
 img{max-width:100%;height:auto;display:block}
 p,h1,h2,h3{overflow-wrap:break-word}
 .container{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,32px);width:100%}
-.about-col{display:grid;grid-template-rows:auto 1fr;gap:clamp(16px,3vw,24px);min-width:0;align-content:start}
+.about-col{display:grid;grid-template-rows:subgrid;grid-row:span 2;gap:clamp(16px,3vw,24px);min-width:0;align-content:start}
+@supports not (grid-template-rows:subgrid){
+  .about-col{display:flex;flex-direction:column;}
+  .about-col>.info-card:first-child{min-height:340px;}
+  .about-col>.info-card:last-child{flex:1 1 0;}
+}
 .skip-link{position:absolute;left:-9999px;top:0;background:var(--primary);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;z-index:200;font-size:14px;font-weight:600}
 .skip-link:focus{left:0}
 :focus-visible{outline:2px solid var(--hover-light);outline-offset:3px;border-radius:var(--r-sm)}
@@ -143,16 +147,16 @@ section{scroll-margin-top:96px}
 
 /* ===== PROJECTS ===== */
 #projects{padding-top:clamp(48px,6vw,72px)}
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:clamp(16px,3vw,24px);margin-top:clamp(24px,4vw,36px)}
-.project-card{background:var(--card-72);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(20px,3.5vw,28px);display:flex;flex-direction:column;gap:18px;backdrop-filter:blur(6px);min-width:0}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:clamp(16px,3vw,24px);margin-top:clamp(24px,4vw,36px);align-items:stretch}
+.project-card{background:var(--card-72);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(20px,3.5vw,28px);display:flex;flex-direction:column;gap:18px;backdrop-filter:blur(6px);min-width:0;height:100%}
 .tag{align-self:flex-start;background:rgba(23,37,84,.6);border:1px solid rgba(59,130,246,.3);color:var(--light);font-size:12px;font-weight:500;padding:6px 14px;border-radius:var(--r-pill)}
 .project-card h3{font-size:clamp(20px,3.5vw,24px);font-weight:700;text-wrap:balance}
-.project-card p{font-size:clamp(14px,2.5vw,16px);color:var(--muted);line-height:1.65}
-.mockup{background:#0A0C13;border:1px solid var(--border);border-radius:var(--r-lg);padding:clamp(14px,3vw,18px);min-height:280px;display:flex;flex-direction:column;gap:12px;overflow:hidden;min-width:0}
+.project-card p{font-size:clamp(14px,2.5vw,16px);color:var(--muted);line-height:1.65;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.mockup{background:#0A0C13;border:1px solid var(--border);border-radius:var(--r-lg);padding:clamp(14px,3vw,18px);min-height:280px;display:flex;flex-direction:column;gap:12px;overflow:hidden;min-width:0;flex:1}
 a.mockup{text-decoration:none;cursor:pointer;color:inherit;transition:border-color .25s,transform .25s,background .25s}
 a.mockup:hover{border-color:rgba(59,130,246,.55);transform:translateY(-2px)}
 a.mockup:focus-visible{outline:2px solid #60A5FA;outline-offset:3px}
-.mockup-bar{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--muted-dim)}
+.mockup-bar{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--muted-dim)}
 .dots{display:flex;gap:6px}
 .dots i{width:8px;height:8px;border-radius:50%;background:var(--muted);display:block}
 .chat-row{display:flex;gap:8px;align-items:flex-start}
@@ -169,12 +173,12 @@ a.mockup:focus-visible{outline:2px solid #60A5FA;outline-offset:3px}
 .erp-banner strong{display:block;font-size:12px;font-weight:700;color:#fff}
 .erp-banner small{font-size:12px;color:var(--muted)}
 .role-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.role{background:#141824;border:1px solid var(--border);border-radius:var(--r-md);padding:14px 10px;text-align:center;font-size:12px;font-weight:500;color:var(--muted-dim);min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.role{background:#141824;border:1px solid var(--border);border-radius:var(--r-md);padding:14px 12px;text-align:center;font-size:14px;font-weight:600;color:var(--muted-dim);min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .role b{display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;margin:0 auto 6px;font-size:12px;font-weight:700}
 .role.r1 b{background:rgba(59,130,246,.2);color:var(--light)}
 .role.r2 b{background:rgba(16,185,129,.2);color:#34D399}
 .role.r3 b{background:rgba(168,85,247,.2);color:#C084FC}
-.role small{display:block;color:var(--t1);font-size:12px;margin-top:2px}
+.role small{display:inline-block;color:var(--light);font-size:12px;font-weight:600;margin-top:6px;border:1px solid rgba(59,130,246,.45);background:rgba(37,99,235,.14);border-radius:var(--r-pill);padding:4px 10px}
 a.role{text-decoration:none;cursor:pointer;display:block;transition:border-color .25s,transform .25s,background .25s}
 a.role.r2:hover{border-color:rgba(52,211,153,.6);background:#171D2A;transform:translateY(-2px)}
 a.role.r2:focus-visible{outline:2px solid #34D399;outline-offset:3px}
@@ -183,21 +187,21 @@ a.role.r1:focus-visible{outline:2px solid #60A5FA;outline-offset:3px}
 a.role.r3:hover{border-color:rgba(168,85,247,.6);background:#171D2A;transform:translateY(-2px)}
 a.role.r3:focus-visible{outline:2px solid #C084FC;outline-offset:3px}
 .secure-row{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted-dim)}
-.case-link{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;width:fit-content;transition:color .25s,gap .25s}
+.case-link{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;width:fit-content;transition:color .25s,gap .25s;margin-top:auto}
 .case-link svg{color:var(--light);transition:transform .25s}
 .case-link:hover{color:#fff;gap:12px}
 .case-link:hover svg{transform:translate(2px,-2px);color:var(--hover-light)}
 
 /* ===== ABOUT GRID ===== */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,3vw,24px);margin-top:clamp(24px,4vw,36px);align-items:stretch}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:clamp(16px,3vw,24px);margin-top:clamp(24px,4vw,36px);align-items:stretch}
 .info-card{background:var(--card-72);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(20px,4vw,30px);min-width:0;height:100%;display:flex;flex-direction:column}
 .info-card .timeline,.info-card .mini-btn{margin-top:auto}
 .card-head{display:flex;align-items:center;gap:14px;margin-bottom:18px}
 .icon-sq{width:42px;height:42px;min-width:42px;border-radius:var(--r-md);background:rgba(37,99,235,.2);border:1px solid rgba(59,130,246,.35);display:flex;align-items:center;justify-content:center;color:var(--light)}
 .card-head h3{font-size:18px;font-weight:700}
 .info-card p.body{font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:18px}
-.mini-btn{display:inline-block;background:var(--pill-2);border:1px solid var(--border);color:var(--t2);font-size:12px;font-weight:500;text-decoration:none;padding:10px 18px;border-radius:var(--r-md);transition:border-color .25s,color .25s}
-.mini-btn:hover{border-color:var(--bright);color:#fff}
+#about .mini-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#0D0F17;border:1px solid var(--border);color:var(--t1);font-size:14px;font-weight:600;text-decoration:none;padding:14px 24px;min-height:48px;border-radius:var(--r-md);transition:border-color .25s,background .25s,color .25s}
+#about .mini-btn:hover{border-color:var(--bright);background:#141824;color:#fff}
 /* timeline */
 .timeline{position:relative;padding-left:26px;margin-top:6px}
 .timeline::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--bright);border-radius:var(--r-sm);opacity:.8}
@@ -223,15 +227,16 @@ a.role.r3:focus-visible{outline:2px solid #C084FC;outline-offset:3px}
 .edu-date{font-size:12px;color:var(--faint);font-family:ui-monospace,Menlo,Consolas,monospace;margin:8px 0 16px}
 
 /* ===== CONTACT ===== */
-.contact-card{background:var(--card-72);border:1px solid var(--border);border-radius:var(--r-2xl);padding:clamp(20px,5vw,44px) clamp(18px,4vw,40px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,4vw,32px);align-items:center}
+.contact-card{background:var(--card-72);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(20px,5vw,44px) clamp(18px,4vw,40px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,4vw,32px);align-items:center}
 .contact-left{display:flex;gap:18px;align-items:flex-start;min-width:0}
 .contact-left>div{min-width:0}
 .contact-left h3{font-size:clamp(20px,4vw,24px);font-weight:700;margin-bottom:8px;text-wrap:balance}
 .contact-left p{font-size:clamp(14px,2.5vw,16px);color:var(--muted);line-height:1.65}
 .contact-badges{display:flex;flex-direction:column;gap:12px;min-width:0}
-.contact-pill{display:flex;align-items:center;gap:10px;background:var(--pill);border:1px solid var(--border);border-radius:var(--r-pill);padding:12px 18px;font-size:12px;font-weight:500;color:var(--t2);text-decoration:none;transition:border-color .25s,color .25s;max-width:100%;overflow-wrap:anywhere;word-break:break-word}
-a.contact-pill:hover{border-color:var(--bright);color:#fff}
-.contact-pill .ico{color:var(--muted-dim);flex-shrink:0}
+.contact-pill{display:flex;align-items:center;gap:12px;background:transparent;border:1px solid transparent;border-radius:var(--r-md);padding:8px 4px;font-size:14px;font-weight:500;color:var(--t2);text-decoration:none;transition:border-color .25s,color .25s;max-width:100%;overflow-wrap:anywhere;word-break:break-word;min-height:48px}
+a.contact-pill:hover{border-color:transparent;color:#fff}
+a.contact-pill:hover span:last-child{text-decoration:underline;text-underline-offset:4px}
+.contact-pill .ico{width:44px;height:44px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;background:#0D0F17;border:1px solid var(--border);border-radius:var(--r-md);color:var(--light)}
 .btn-touch{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--primary);color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:14px 24px;border-radius:var(--r-md);border:1px solid transparent;transition:background .25s,transform .25s;margin-top:4px}
 .btn-touch:hover{background:#1D4ED8;transform:translateY(-1px)}
 .btn-touch svg{transition:transform .25s ease}
@@ -292,7 +297,7 @@ footer{border-top:1px solid var(--border);padding:28px 0;margin-top:8px}
   .role-grid{grid-template-columns:1fr}
   a.role{padding:14px 10px;min-height:44px}
   .contact-left{flex-direction:column;gap:12px}
-  .contact-pill{font-size:12px;padding:12px 14px;border-radius:var(--r-lg)}
+  .contact-pill{font-size:14px;padding:8px 4px;border-radius:var(--r-md)}
   .btn-touch{width:100%}
   .footer-nav{gap:8px 16px}
   .copy{width:100%;text-align:center}
@@ -393,7 +398,7 @@ footer{border-top:1px solid var(--border);padding:28px 0;margin-top:8px}
           <h3>Realtime Common Chatbot</h3>
           <p>The Chatbot project was my first real-world UI/UX project. During this project, I learned the complete UX design process, conversational flows, and intuitive interaction paradigms.</p>
           <a class="mockup" href="https://lovable.dev/preview/l0AkBD0cQxyj9ZDEB2zucHVrbyYJLBhU" target="_blank" rel="noopener" aria-label="Open Realtime Chatbot live demo (opens in new tab)" title="Open Chatbot live demo">
-            <div class="mockup-bar" aria-hidden="true"><span>CHATBOT INTERFACE</span><span class="dots"><i></i><i></i><i></i></span></div>
+            <div class="mockup-bar" aria-hidden="true"><span>Chatbot interface</span><span class="dots"><i></i><i></i><i></i></span></div>
             <div class="chat-row" aria-hidden="true"><span class="chat-ava">✦</span><span class="bubble-user">Certainly! How can I help?</span></div>
             <div class="chat-row" aria-hidden="true"><span class="bubble-dark">Checking options...</span></div>
             <div class="chat-row" aria-hidden="true"><span class="bubble-dark" style="color:var(--light)">Analysis complete</span></div>
@@ -406,7 +411,7 @@ footer{border-top:1px solid var(--border);padding:28px 0;margin-top:8px}
         <article class="project-card">
           <span class="tag">UI/UX Design</span>
           <h3>School ERP Login</h3>
-          <p>Real-World Project — School ERP. School ERP platform where I designed intuitive user flows, wireframes, and responsive interfaces for parents, teachers, and HR teams using Figma. I applied design thinking and user-centered design principles to create seamless experiences across both web and mobile platforms. I independently designed the complete application and responsive website, tailoring each user panel and workflow to meet specific user needs. Throughout the project, I iterated on the designs based on client feedback, usability requirements, and real-world business needs, ensuring a clear, consistent, and user-friendly experience across all devices.</p>
+          <p>Real-world School ERP — intuitive flows, wireframes, and responsive interfaces for parent, teacher, and admin panels, designed in Figma and iterated with client feedback.</p>
           <div class="mockup">
             <div class="mockup-bar" aria-hidden="true"><span style="display:flex;align-items:center;gap:8px"><span class="erp-logo">S</span><span>School ERP</span></span><span class="dots"><i></i><i></i><i></i></span></div>
             <div class="erp-banner" aria-hidden="true"><small>PORTALS</small><strong>One School. Many Logins.</strong><small>Smart Access for Everyone in the School Ecosystem</small></div>
